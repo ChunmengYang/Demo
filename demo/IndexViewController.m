@@ -1,23 +1,21 @@
 //
-//  ViewController.m
+//  IndexViewController.m
 //  demo
 //
 //  Created by ChunmengYang on 2019/3/18.
 //  Copyright © 2019年 ChunmengYang. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "IndexViewController.h"
 
-@interface ViewController ()
-
+@interface IndexViewController ()
 @end
 
-@implementation ViewController
+@implementation IndexViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    NSLog(@"================viewDidLoad End================");
 }
-
-
 @end
