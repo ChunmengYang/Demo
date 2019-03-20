@@ -39,41 +39,42 @@
                          initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:@"74278BDA-B644-4520-8F0C-720EAF059935"]
                          identifier:@"media"];
     
+    if (![CLLocationManager locationServicesEnabled]) {
+        //需要打开定位服务
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:nil
+                                    message:@"需要打开定位服务才可以扫描到信标"
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alert addAction:cancelAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
     // 有定位权限
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse
         || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
         
-        if ([CLLocationManager locationServicesEnabled]) {
-            //定位功能可用
-            [self.localtionManager startMonitoringForRegion:self.beaconRegion];
-            [self.localtionManager startRangingBeaconsInRegion:self.beaconRegion];
-            NSLog(@"================Scanning================");
-        } else {
-            //需要打开定位服务
-            UIAlertController *alert = [UIAlertController
-                                        alertControllerWithTitle:nil
-                                        message:@"扫描信标需要使用您的定位服务"
-                                        preferredStyle:UIAlertControllerStyleAlert];
-            
-            
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSLog(@"点击取消");
-            }];
-            [alert addAction:cancelAction];
-            
-            [self presentViewController:alert animated:YES completion:nil];
-        }
+        //定位功能可用
+        [self.localtionManager startMonitoringForRegion:self.beaconRegion];
+        [self.localtionManager startRangingBeaconsInRegion:self.beaconRegion];
+        NSLog(@"================Scanning================");
     } else {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
             NSLog(@"================kCLAuthorizationStatusDenied================");
             //必须获得定位权限
             UIAlertController *alert = [UIAlertController
                                         alertControllerWithTitle:nil
-                                        message:@"扫描信标需要使用您的定位服务"
+                                        message:@"需要打开位置权限才可以扫描到信标"
                                         preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSLog(@"点击取消");
+                [self dismissViewControllerAnimated:YES completion:nil];
             }];
             [alert addAction:cancelAction];
             
