@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		66247EB122408D29005A28B0 /* IndexViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 66247EAF22408D29005A28B0 /* IndexViewController.h */; };
 		66247EB222408D29005A28B0 /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66247EB022408D29005A28B0 /* IndexViewController.m */; };
+		664C4BB422519EC700CFC655 /* BleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664C4BB322519EC700CFC655 /* BleViewController.m */; };
+		664C4BB62251A2A600CFC655 /* BeaconViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E1FA4E223F453700F640EF /* BeaconViewController.h */; };
+		664C4BB72251A2A600CFC655 /* BleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 664C4BB522519EE500CFC655 /* BleViewController.h */; };
 		66E1FA4D223F453700F640EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FA4C223F453700F640EF /* AppDelegate.m */; };
 		66E1FA50223F453700F640EF /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FA4F223F453700F640EF /* BeaconViewController.m */; };
 		66E1FA53223F453700F640EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E1FA51223F453700F640EF /* Main.storyboard */; };
@@ -41,6 +44,8 @@
 /* Begin PBXFileReference section */
 		66247EAF22408D29005A28B0 /* IndexViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexViewController.h; sourceTree = "<group>"; };
 		66247EB022408D29005A28B0 /* IndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexViewController.m; sourceTree = "<group>"; };
+		664C4BB322519EC700CFC655 /* BleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleViewController.m; sourceTree = "<group>"; };
+		664C4BB522519EE500CFC655 /* BleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleViewController.h; sourceTree = "<group>"; };
 		66E1FA48223F453700F640EF /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E1FA4B223F453700F640EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E1FA4C223F453700F640EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -123,6 +128,8 @@
 				66E1FA5A223F453800F640EF /* main.m */,
 				66247EAF22408D29005A28B0 /* IndexViewController.h */,
 				66247EB022408D29005A28B0 /* IndexViewController.m */,
+				664C4BB522519EE500CFC655 /* BleViewController.h */,
+				664C4BB322519EC700CFC655 /* BleViewController.m */,
 			);
 			path = demo;
 			sourceTree = "<group>";
@@ -161,6 +168,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664C4BB62251A2A600CFC655 /* BeaconViewController.h in Headers */,
+				664C4BB72251A2A600CFC655 /* BleViewController.h in Headers */,
 				66247EB122408D29005A28B0 /* IndexViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66247EB222408D29005A28B0 /* IndexViewController.m in Sources */,
+				664C4BB422519EC700CFC655 /* BleViewController.m in Sources */,
 				66E1FA50223F453700F640EF /* BeaconViewController.m in Sources */,
 				66E1FA5B223F453800F640EF /* main.m in Sources */,
 				66E1FA4D223F453700F640EF /* AppDelegate.m in Sources */,
