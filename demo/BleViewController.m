@@ -321,7 +321,7 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     if ([ENCODE_UTF8 isEqualToString:charsetName]) {
         return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     } else {
-        return [self stringFromHexString:[self convertDataToHexStr: data]];
+        return [self stringFromHexString:[self stringFromHexString:[self convertDataToHexStr: data]]];
     }
 }
 /*
@@ -334,7 +334,7 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     if ([ENCODE_UTF8 isEqualToString:charsetName]) {
         return [str dataUsingEncoding:NSUTF8StringEncoding];
     } else {
-        return [self convertHexStrToData:[self hexStringFromString:str]];
+        return [self convertHexStrToData:[self hexStringFromString:[self hexStringFromString:str]]];
     }
 }
 
