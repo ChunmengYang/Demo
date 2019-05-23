@@ -13,8 +13,14 @@
 @interface BeaconViewController ()
 @property(nonatomic, retain) CLLocationManager *localtionManager;
 @property(nonatomic, retain) CLBeaconRegion *beaconRegion;
+@property (nonatomic, assign) Boolean isScanning;
 
-@property (retain, nonatomic) IBOutlet UILabel *label;
+@property(nonatomic, retain) CBPeripheralManager *peripheralManager;
+@property(nonatomic, retain) CLBeaconRegion *beaconData;
+@property (nonatomic, assign) Boolean isAdvertising;
+
+@property (retain, nonatomic) IBOutlet UILabel *beaconLabel;
+@property (retain, nonatomic) IBOutlet UILabel *msgLabel;
 @end
 
 @implementation BeaconViewController
@@ -23,20 +29,44 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.label.textColor = [UIColor purpleColor];
-    self.label.numberOfLines = 0;
-    [self.label setText:@"Scanning"];
+    self.beaconLabel.textColor = [UIColor purpleColor];
+    self.beaconLabel.numberOfLines = 0;
+    [self.beaconLabel setText:@"Scanning"];
+    
+    self.msgLabel.textColor = [UIColor purpleColor];
+    self.msgLabel.numberOfLines = 0;
+    [self.msgLabel setText:@"Click Advertise Button"];
+    
+    self.isScanning = false;
+    self.isAdvertising = false;
     NSLog(@"================viewDidLoad End================");
 }
-
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    [self startScan];
+    NSLog(@"================viewWillAppear End================");
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self stopScan];
+    [self stopAdvertising];
+    
+    NSLog(@"================viewWillDisappear End================");
+}
+
+- (void)startScan {
+    if (self.isScanning) {
+        return;
+    }
+    
     self.localtionManager = [[CLLocationManager alloc] init];
     self.localtionManager.delegate = self;
     self.beaconRegion = [[CLBeaconRegion alloc]
-                         initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:@"74278BDA-B644-4520-8F0C-720EAF059935"]
+                         initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:@"FDA50693-A4E2-4FB1-AFCF-C6EB07647825"]
                          identifier:@"media"];
     
     if (![CLLocationManager locationServicesEnabled]) {
@@ -63,6 +93,8 @@
         //定位功能可用
         [self.localtionManager startMonitoringForRegion:self.beaconRegion];
         [self.localtionManager startRangingBeaconsInRegion:self.beaconRegion];
+        
+        self.isScanning = true;
         NSLog(@"================Scanning================");
     } else {
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
@@ -85,27 +117,75 @@
             [self.localtionManager requestWhenInUseAuthorization];
         }
     }
-    NSLog(@"================viewWillAppear End================");
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)stopScan {
+    NSLog(@"================stopScan Start================");
     
-    [self.localtionManager stopMonitoringForRegion:self.beaconRegion];
-    [self.localtionManager stopRangingBeaconsInRegion:self.beaconRegion];
+    if (self.localtionManager != nil) {
+        [self.localtionManager stopMonitoringForRegion:self.beaconRegion];
+        [self.localtionManager stopRangingBeaconsInRegion:self.beaconRegion];
+    }
     
-    [self.localtionManager release];
-    [self.beaconRegion release];
-    [self.label release];
+    self.localtionManager = nil;
+    self.beaconRegion = nil;
     
-    NSLog(@"================viewWillDisappear End================");
+    NSLog(@"================stopScan End================");
 }
 
+// 开启作为iBeacon，只需要打开蓝牙
+-(void)startAdvertising {
+    NSLog(@"================startAdvertising Start================");
+    if (self.isAdvertising) {
+        return;
+    }
+    
+    NSString *uuid = @"FDA50693-A4E2-4FB1-AFCF-C6EB07647825";
+    int major = 5;
+    int minor = 1505;
+    
+    if (nil == uuid || [uuid isEqualToString:@""] || major <= 0 || minor <= 0) {
+        return;
+    }
+    
+    self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.beaconData = [[CLBeaconRegion alloc]
+                       initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:uuid]
+                       major:major
+                       minor:minor
+                       identifier:@"media"];
+    
+    NSLog(@"================startAdvertising End================");
+}
+
+-(void)stopAdvertising {
+    NSLog(@"================stopAdvertising Start================");
+    
+    if (self.peripheralManager != nil) {
+        [self.peripheralManager stopAdvertising];
+    }
+    
+    self.peripheralManager = nil;
+    self.beaconData = nil;
+    
+    self.isAdvertising = false;
+    
+    NSLog(@"================stopAdvertising End================");
+}
+
+- (IBAction)Advertise:(id)sender {
+    [self startAdvertising];
+}
+
+- (IBAction)Back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    NSLog(@"================Page Back================");
+}
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status == kCLAuthorizationStatusAuthorizedAlways|| status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        [self.localtionManager startMonitoringForRegion:self.beaconRegion];
-        [self.localtionManager startRangingBeaconsInRegion:self.beaconRegion];
+        [self startScan];
     }
 }
 
@@ -114,18 +194,36 @@
     
     NSLog(@"================didRangeBeacons:%ld================", beacons.count);
     for (CLBeacon* beacon in beacons) {
-        NSLog(@"uuid: %@,rssi :%ld-====mj%d-====min%d", beacon.proximityUUID.UUIDString, beacon.rssi, beacon.major.intValue, beacon.minor.intValue);
+        NSLog(@"uuid: %@ \nrssi :%ld\nmajor: %d, minor: %d", beacon.proximityUUID.UUIDString, beacon.rssi, beacon.major.intValue, beacon.minor.intValue);
         
-        [self.label setText:[NSString stringWithFormat:@"uuid: %@,\nrssi :%ld\n-====mj%d-====min%d", beacon.proximityUUID.UUIDString, beacon.rssi, beacon.major.intValue, beacon.minor.intValue]];
+        [self.beaconLabel setText:[NSString stringWithFormat:@"uuid: %@ \nrssi :%ld\nmajor: %d, minor: %d", beacon.proximityUUID.UUIDString, beacon.rssi, beacon.major.intValue, beacon.minor.intValue]];
     }
 }
-- (void)dealloc {
-    [_label release];
-    [super dealloc];
-}
-- (IBAction)Back:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+-(void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral {
+    if (peripheral.state == CBManagerStatePoweredOn) {
+        if (self.beaconData) {
+            NSDictionary *peripheralData = nil;
+            peripheralData = [self.beaconData peripheralDataWithMeasuredPower:nil];
+            if (peripheralData) {
+                [self.peripheralManager startAdvertising:peripheralData];
+                return;
+            }
+        }
+    }
     
-    NSLog(@"================Scan iBeacon Back================");
+    [self.msgLabel setText:@"需要打开蓝牙才能设置为信标"];
+}
+
+-(void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error {
+    if (error) {
+        [self.msgLabel setText:@"设置为信标失败"];
+    } else {
+        self.isAdvertising = true;
+        
+        [self.msgLabel setText:[NSString stringWithFormat:@"uuid: %@,\nmajor: %d, minor: %d \nAdvertising", self.beaconData.proximityUUID.UUIDString, self.beaconData.major.intValue, self.beaconData.minor.intValue]];
+        
+        NSLog(@"================Advertising================");
+    }
 }
 @end

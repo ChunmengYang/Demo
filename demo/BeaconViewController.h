@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CLLocationManager.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
+#import <CoreBluetooth/CBPeripheralManager.h>
 
-@interface BeaconViewController : UIViewController<CLLocationManagerDelegate>
+@interface BeaconViewController : UIViewController<CLLocationManagerDelegate, CBPeripheralManagerDelegate>
 
 @end
 
