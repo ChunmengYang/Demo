@@ -18,4 +18,11 @@
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"================viewDidLoad End================");
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"================IndexViewController viewWillAppear================");
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    NSLog(@"================IndexViewController viewWillDisappear================");
+}
 @end

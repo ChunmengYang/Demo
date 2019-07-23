@@ -12,6 +12,8 @@
 		664C4BB422519EC700CFC655 /* BleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 664C4BB322519EC700CFC655 /* BleViewController.m */; };
 		664C4BB62251A2A600CFC655 /* BeaconViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 66E1FA4E223F453700F640EF /* BeaconViewController.h */; };
 		664C4BB72251A2A600CFC655 /* BleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 664C4BB522519EE500CFC655 /* BleViewController.h */; };
+		66839A1022DD6ED00013C9D3 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66839A0F22DD6ED00013C9D3 /* PhotoViewController.m */; };
+		66839A1222DD70A50013C9D3 /* timg.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 66839A1122DD70A50013C9D3 /* timg.jpeg */; };
 		66E1FA4D223F453700F640EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FA4C223F453700F640EF /* AppDelegate.m */; };
 		66E1FA50223F453700F640EF /* BeaconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E1FA4F223F453700F640EF /* BeaconViewController.m */; };
 		66E1FA53223F453700F640EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66E1FA51223F453700F640EF /* Main.storyboard */; };
@@ -46,6 +48,9 @@
 		66247EB022408D29005A28B0 /* IndexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexViewController.m; sourceTree = "<group>"; };
 		664C4BB322519EC700CFC655 /* BleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BleViewController.m; sourceTree = "<group>"; };
 		664C4BB522519EE500CFC655 /* BleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BleViewController.h; sourceTree = "<group>"; };
+		66839A0E22DD6EB10013C9D3 /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		66839A0F22DD6ED00013C9D3 /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		66839A1122DD70A50013C9D3 /* timg.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = timg.jpeg; path = ../../../Downloads/timg.jpeg; sourceTree = "<group>"; };
 		66E1FA48223F453700F640EF /* demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E1FA4B223F453700F640EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		66E1FA4C223F453700F640EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 		66E1FA4A223F453700F640EF /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				66839A1122DD70A50013C9D3 /* timg.jpeg */,
 				66E1FA4B223F453700F640EF /* AppDelegate.h */,
 				66E1FA4C223F453700F640EF /* AppDelegate.m */,
 				66E1FA4E223F453700F640EF /* BeaconViewController.h */,
@@ -130,6 +136,8 @@
 				66247EB022408D29005A28B0 /* IndexViewController.m */,
 				664C4BB522519EE500CFC655 /* BleViewController.h */,
 				664C4BB322519EC700CFC655 /* BleViewController.m */,
+				66839A0E22DD6EB10013C9D3 /* PhotoViewController.h */,
+				66839A0F22DD6ED00013C9D3 /* PhotoViewController.m */,
 			);
 			path = demo;
 			sourceTree = "<group>";
@@ -280,6 +288,7 @@
 			files = (
 				66E1FA58223F453800F640EF /* LaunchScreen.storyboard in Resources */,
 				66E1FA55223F453800F640EF /* Assets.xcassets in Resources */,
+				66839A1222DD70A50013C9D3 /* timg.jpeg in Resources */,
 				66E1FA53223F453700F640EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +317,7 @@
 				66247EB222408D29005A28B0 /* IndexViewController.m in Sources */,
 				664C4BB422519EC700CFC655 /* BleViewController.m in Sources */,
 				66E1FA50223F453700F640EF /* BeaconViewController.m in Sources */,
+				66839A1022DD6ED00013C9D3 /* PhotoViewController.m in Sources */,
 				66E1FA5B223F453800F640EF /* main.m in Sources */,
 				66E1FA4D223F453700F640EF /* AppDelegate.m in Sources */,
 			);
